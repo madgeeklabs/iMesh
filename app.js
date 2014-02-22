@@ -1,9 +1,10 @@
 var bleno = require('bleno');
+var fs = require('fs');
 var BlenoPrimaryService = bleno.PrimaryService;
 var BlenoCharacteristic = bleno.Characteristic;
 var BlenoDescriptor = bleno.Descriptor;
 var util = require('util');
-
+var config = require('./config.json')
 console.log('bleno - iBeacon');
 
 bleno.on('stateChange', function(state) {
@@ -11,7 +12,7 @@ bleno.on('stateChange', function(state) {
 
   if (state === 'poweredOn') {
     // bleno.startAdvertisingIBeacon('e2c56db5dffb48d2b060d0f5a71096e0', 0, 0, -59);
-    bleno.startAdvertising('tuxBeacon', ['ffffffffffffffffffffffffff0ffff0']);
+    bleno.startAdvertising(config.name, [config.id]);
   } else {
     bleno.stopAdvertising();
   }
