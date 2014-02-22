@@ -11,14 +11,15 @@ bleno.on('stateChange', function(state) {
 
   if (state === 'poweredOn') {
     // bleno.startAdvertisingIBeacon('e2c56db5dffb48d2b060d0f5a71096e0', 0, 0, -59);
-    bleno.startAdvertising('mglData', ['fffffffffffffffffffffffffffffff0']);
+    bleno.startAdvertising('mglData', ['02fffffffffffffffffffffffffffff0']);
   } else {
     bleno.stopAdvertising();
   }
 });
 
 bleno.on('advertisingStart', function(error) {
-  console.log('on -> advertisingStart');
+  console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
+
   if (!error) {
     bleno.setServices([
       new SampleService()
@@ -32,16 +33,34 @@ bleno.on('advertisingStop', function() {
 
 function SampleService() {
   SampleService.super_.call(this, {
-    uuid: 'fffffffffffffffffffffffffffffff0',
+    uuid: '02fffffffffffffffffffffffffffff0',
     characteristics: [ 
+      new WriteOnlyCharacteristic(),
       new DynamicReadOnlyCharacteristic()
     ]
   });
 }
 
+var WriteOnlyCharacteristic = function() {
+  WriteOnlyCharacteristic.super_.call(this, {
+    uuid: 'fffffffffffffffffffffffffffffff3',
+    properties: ['write', 'writeWithoutResponse']
+  });
+};
+
+util.inherits(WriteOnlyCharacteristic, BlenoCharacteristic);
+
+WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
+  console.log('WriteOnlyCharacteristic write request: ' + data.toString('hex') + ' ' + offset + ' ' + withoutResponse);
+
+  callback(this.RESULT_SUCCESS);
+};
+
+util.inherits(SampleService, BlenoPrimaryService);
+
 var DynamicReadOnlyCharacteristic = function() {
   DynamicReadOnlyCharacteristic.super_.call(this, {
-    uuid: 'fffffffffffffffffffffffffffffff2',
+    uuid: '2A65ffffffffffffffffffffffff2A65',
     properties: ['read']
   });
 };
@@ -51,7 +70,7 @@ util.inherits(DynamicReadOnlyCharacteristic, BlenoCharacteristic);
 DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callback) {
 	console.log('read request');
   var result = this.RESULT_SUCCESS;
-  var data = new Buffer(1);
+  var data = new Buffer('asdf');
 
   if (offset > data.length) {
     result = this.RESULT_INVALID_OFFSET;
