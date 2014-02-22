@@ -2,6 +2,7 @@ var bleno = require('bleno');
 var BlenoPrimaryService = bleno.PrimaryService;
 var BlenoCharacteristic = bleno.Characteristic;
 var BlenoDescriptor = bleno.Descriptor;
+var util = require('util');
 
 console.log('bleno - iBeacon');
 
