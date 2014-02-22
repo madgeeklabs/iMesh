@@ -11,7 +11,7 @@ bleno.on('stateChange', function(state) {
 
   if (state === 'poweredOn') {
     // bleno.startAdvertisingIBeacon('e2c56db5dffb48d2b060d0f5a71096e0', 0, 0, -59);
-    bleno.startAdvertising('mgl230', ['ffffffffffffffffffffffffffffff0']);
+    bleno.startAdvertising('mgl230', ['fffffffffffffffffffffffffffffff0']);
   } else {
     bleno.stopAdvertising();
   }
