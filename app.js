@@ -11,7 +11,7 @@ bleno.on('stateChange', function(state) {
 
   if (state === 'poweredOn') {
     // bleno.startAdvertisingIBeacon('e2c56db5dffb48d2b060d0f5a71096e0', 0, 0, -59);
-    bleno.startAdvertising('mglData', ['02fffffffffffffffffffffffffffff0']);
+    bleno.startAdvertising('MACmgl', ['fffffffffffffffffffffffffffffff0']);
   } else {
     bleno.stopAdvertising();
   }
@@ -33,9 +33,9 @@ bleno.on('advertisingStop', function() {
 
 function SampleService() {
   SampleService.super_.call(this, {
-    uuid: '02fffffffffffffffffffffffffffff0',
+    uuid: 'fffffffffffffffffffffffffffffff0',
     characteristics: [ 
-      new WriteOnlyCharacteristic(),
+      // new WriteOnlyCharacteristic(),
       new DynamicReadOnlyCharacteristic()
     ]
   });
