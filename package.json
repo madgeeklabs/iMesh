@@ -1,0 +1,14 @@
+{
+	"name": "iMesh",
+	"description": "Rest server example",
+	"version": "0.0.1",
+	"private": "true",
+	"dependencies": {
+		"bleno": "0.1.2",
+		"colors": "*"
+	},
+	"engines": {
+		"node": "0.8.x",
+		"npm": "1.1.x"
+	}
+}
