@@ -11,14 +11,19 @@ bleno.on('stateChange', function(state) {
 
   if (state === 'poweredOn') {
     // bleno.startAdvertisingIBeacon('e2c56db5dffb48d2b060d0f5a71096e0', 0, 0, -59);
-    bleno.startAdvertising('mglData', [fffffffffffffffffffffffffffffff0]);
+    bleno.startAdvertising('mglData', ['fffffffffffffffffffffffffffffff0']);
   } else {
     bleno.stopAdvertising();
   }
 });
 
-bleno.on('advertisingStart', function() {
+bleno.on('advertisingStart', function(error) {
   console.log('on -> advertisingStart');
+  if (!error) {
+    bleno.setServices([
+      new SampleService()
+    ]);
+  }
 });
 
 bleno.on('advertisingStop', function() {
@@ -44,8 +49,9 @@ var DynamicReadOnlyCharacteristic = function() {
 util.inherits(DynamicReadOnlyCharacteristic, BlenoCharacteristic);
 
 DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callback) {
+	console.log('read request');
   var result = this.RESULT_SUCCESS;
-  var data = new Buffer('dynamic value');
+  var data = new Buffer(1);
 
   if (offset > data.length) {
     result = this.RESULT_INVALID_OFFSET;
