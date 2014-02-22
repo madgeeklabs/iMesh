@@ -60,7 +60,7 @@ util.inherits(SampleService, BlenoPrimaryService);
 
 var DynamicReadOnlyCharacteristic = function() {
   DynamicReadOnlyCharacteristic.super_.call(this, {
-    uuid: '2A65ffffffffffffffffffffffff2A65',
+    uuid: 'fffffffffffffffffffffffffffffff1',
     properties: ['read']
   });
 };
