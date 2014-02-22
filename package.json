@@ -5,7 +5,11 @@
 	"private": "true",
 	"dependencies": {
 		"bleno": "0.1.2",
-		"colors": "*"
+		"colors": "*",
+        "binary-format": "0.0.1",
+        "jParser": "~1.0.2",
+        "binary": "~0.3.0",
+        "packet": "0.0.6"
 	},
 	"engines": {
 		"node": "0.8.x",
